@@ -7,14 +7,15 @@ _Last updated: 2026-06-19_
 
 ## Current state
 
-- **All phases (0–6) feature-complete and building.** `npm run build` and
-  `npx eslint src` both pass clean.
-- **Supabase:** NOT yet connected by the user. `.env.local` has placeholders; app
-  boots and shows a "Connect Supabase" banner until real keys + SQL are applied.
-- **GitHub:** repo https://github.com/Aakash9974/surajdairy — remote `origin` set;
-  see "Push status" below.
-- Remaining work is **user-side**: connect Supabase, test locally (TEST-PLAN.md),
-  deploy (DEPLOYMENT.md). Branded icons can replace the generated placeholders.
+- **All phases (0–6) feature-complete and VERIFIED WORKING LOCALLY** (2026-06-19).
+  `npm run build` and `npx eslint src` pass clean.
+- **Supabase:** connected to project `esyrqtqntxwxkqbxqbdo` (Sydney). DB set up via
+  `supabase/setup_all.sql`; login working (email confirmation disabled / confirmed
+  via `update auth.users set email_confirmed_at = now()`). Sample data available in
+  `supabase/sample_data.sql`. Uses legacy anon JWT key in `.env.local`.
+- **GitHub:** repo https://github.com/Aakash9974/surajdairy — `main` pushed.
+- **Next step:** deploy to Vercel (DEPLOYMENT.md) for a shareable tester URL.
+  Optional: branded icons to replace generated placeholders.
 
 ## Done (all phases)
 
