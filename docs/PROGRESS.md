@@ -9,6 +9,14 @@ _Last updated: 2026-06-19_
 
 - **All phases (0–6) feature-complete and VERIFIED WORKING LOCALLY** (2026-06-19).
   `npm run build` and `npx eslint src` pass clean.
+- **Post-launch polish shipped:** advance-balance display fix; Vercel build fix
+  (login client created on submit); POS redesign (sections, product search,
+  inline +/- on cards); edit/delete past sales via "Recent" (RPCs `update_sale`
+  /`delete_sale`, migration 0004 — included in `setup_all.sql`); brand logo
+  (`public/logo.svg`) in header/login/favicon + matching PWA icons; `.card`/
+  `.btn-brand` switched to plain CSS (Tailwind v4 @apply gradient didn't render).
+- **Deploy note:** production Supabase must run `setup_all.sql` (includes the
+  0003/0004 sale RPCs) or edit/update will fail with "function not found".
 - **Supabase:** connected to project `esyrqtqntxwxkqbxqbdo` (Sydney). DB set up via
   `supabase/setup_all.sql`; login working (email confirmation disabled / confirmed
   via `update auth.users set email_confirmed_at = now()`). Sample data available in

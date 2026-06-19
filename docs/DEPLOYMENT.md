@@ -10,10 +10,10 @@ database. All free-tier.
 - A Supabase project (can reuse your local one, or make a separate "prod" one).
 
 ## 1. Prepare Supabase (production)
-1. In the Supabase project → **SQL Editor**, run in order:
-   - `supabase/migrations/0001_init.sql`
-   - `supabase/migrations/0002_storage.sql`
-   - `supabase/seed.sql` (optional starter products)
+1. In the Supabase project → **SQL Editor**, run **`supabase/setup_all.sql`** —
+   one file that creates everything (tables, security, realtime, storage, the
+   sale RPCs incl. `create_sale`/`update_sale`/`delete_sale`, and seed products).
+   (Or run the individual `migrations/0001…0004` + `seed.sql` in order.)
 2. **Authentication → Providers → Email**: enable, and turn **off** "Confirm email"
    (or pre-confirm users) so staff can log in immediately.
 3. **Authentication → Users → Add user**: create the owner account.
