@@ -26,7 +26,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full text-slate-900">
+      <body className="min-h-full text-slate-900" suppressHydrationWarning>
         {children}
         <ServiceWorkerRegister />
       </body>
