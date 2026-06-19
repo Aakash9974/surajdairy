@@ -26,8 +26,9 @@ async function getStats() {
       (s, r) => s + (Number(r.total_amount) - Number(r.paid_amount)),
       0,
     ) ?? 0;
+  // Only positive balances count as outstanding (advances shouldn't reduce it).
   const totalOutstanding =
-    outstanding.data?.reduce((s, r) => s + Number(r.balance), 0) ?? 0;
+    outstanding.data?.reduce((s, r) => s + Math.max(0, Number(r.balance)), 0) ?? 0;
 
   return {
     todayTotal,

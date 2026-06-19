@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
-import { formatINR } from "@/lib/format";
+import { describeBalance } from "@/lib/format";
 import type { Customer } from "@/lib/types";
 import Modal from "@/components/ui/Modal";
 import CustomerForm from "./CustomerForm";
@@ -73,12 +73,21 @@ export default function CustomersClient() {
                   <p className="truncate font-medium">{c.name}</p>
                   <p className="truncate text-xs text-slate-500">{c.phone || "No phone"}</p>
                 </div>
-                <div className="text-right">
-                  <p className={`font-semibold ${c.balance > 0 ? "text-red-600" : "text-slate-600"}`}>
-                    {formatINR(c.balance)}
-                  </p>
-                  <p className="text-xs text-slate-400">{c.balance > 0 ? "owes" : "clear"}</p>
-                </div>
+                {(() => {
+                  const b = describeBalance(c.balance);
+                  const color =
+                    b.tone === "owe"
+                      ? "text-red-600"
+                      : b.tone === "advance"
+                        ? "text-emerald-600"
+                        : "text-slate-600";
+                  return (
+                    <div className="text-right">
+                      <p className={`font-semibold ${color}`}>{b.amount}</p>
+                      <p className="text-xs text-slate-400">{b.label}</p>
+                    </div>
+                  );
+                })()}
               </Link>
             </li>
           ))}

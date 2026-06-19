@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { formatINR } from "@/lib/format";
+import { describeBalance } from "@/lib/format";
 import type { Customer } from "@/lib/types";
 import Modal from "@/components/ui/Modal";
 import CustomerForm from "./CustomerForm";
@@ -50,10 +50,27 @@ export default function CustomerDetailClient({ id }: { id: string }) {
           </button>
         </div>
         <div className="mt-3 rounded-lg bg-slate-50 p-3">
-          <p className="text-xs text-slate-500">Outstanding balance</p>
-          <p className={`text-2xl font-bold ${balance > 0 ? "text-red-600" : "text-emerald-600"}`}>
-            {formatINR(balance)}
-          </p>
+          {(() => {
+            const b = describeBalance(balance);
+            const label =
+              b.tone === "owe"
+                ? "Outstanding balance (owes)"
+                : b.tone === "advance"
+                  ? "Advance balance (paid extra)"
+                  : "Balance";
+            const color =
+              b.tone === "owe"
+                ? "text-red-600"
+                : b.tone === "advance"
+                  ? "text-emerald-600"
+                  : "text-slate-600";
+            return (
+              <>
+                <p className="text-xs text-slate-500">{label}</p>
+                <p className={`text-2xl font-bold ${color}`}>{b.amount}</p>
+              </>
+            );
+          })()}
         </div>
       </div>
 
