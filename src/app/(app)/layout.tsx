@@ -18,15 +18,22 @@ export default async function AppLayout({
 
   return (
     <div className="mx-auto flex min-h-screen max-w-2xl flex-col">
-      <header className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-white/90 px-4 py-3 backdrop-blur">
-        <div className="flex items-center gap-2">
-          <span className="text-xl">🥛</span>
-          <span className="font-semibold">{DAIRY_NAME}</span>
+      <header className="sticky top-0 z-10 bg-gradient-to-r from-teal-700 to-emerald-600 text-white shadow-md">
+        <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-2.5">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/15 text-lg backdrop-blur">
+              🥛
+            </span>
+            <div className="leading-tight">
+              <p className="font-semibold">{DAIRY_NAME}</p>
+              <p className="text-[11px] text-white/70">Sales &amp; ledger</p>
+            </div>
+          </div>
+          <SignOutButton />
         </div>
-        <SignOutButton />
       </header>
 
-      <main className="flex-1 px-4 pb-24 pt-4">{children}</main>
+      <main className="flex-1 px-4 pb-28 pt-4">{children}</main>
 
       <AppNav />
     </div>

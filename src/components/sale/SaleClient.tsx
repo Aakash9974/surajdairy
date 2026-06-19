@@ -76,10 +76,16 @@ export default function SaleClient() {
       {/* Customer bar */}
       <button
         onClick={() => setPickerOpen(true)}
-        className="flex w-full items-center justify-between rounded-xl bg-white px-4 py-3 text-left ring-1 ring-slate-200"
+        className="card flex w-full items-center gap-3 px-4 py-3 text-left"
       >
-        <span className="text-sm text-slate-500">Customer</span>
-        <span className="font-medium">{customer ? customer.name : "Walk-in (cash)"} ▾</span>
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-teal-50 text-lg">
+          {customer ? "🧑" : "🚶"}
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="text-xs text-slate-500">Customer</p>
+          <p className="truncate font-semibold">{customer ? customer.name : "Walk-in (cash)"}</p>
+        </div>
+        <span className="text-sm text-teal-700">Change ▾</span>
       </button>
 
       {/* Product grid */}
@@ -88,32 +94,60 @@ export default function SaleClient() {
           No active products. Add some in Inventory.
         </p>
       ) : (
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-2.5">
           {products.map((p) => {
             const qty = cart[p.id]?.qty ?? 0;
             return (
-              <button
+              <div
                 key={p.id}
-                onClick={() => add(p)}
-                className={`relative flex flex-col items-center rounded-xl bg-white p-2 ring-1 transition ${
-                  qty > 0 ? "ring-2 ring-brand" : "ring-slate-200"
+                className={`relative flex flex-col rounded-2xl bg-white p-2 shadow-sm ring-1 transition ${
+                  qty > 0 ? "ring-2 ring-teal-500" : "ring-slate-200/70"
                 }`}
               >
                 {qty > 0 && (
-                  <span className="absolute right-1 top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-brand px-1 text-xs font-semibold text-white">
+                  <span className="absolute -right-1.5 -top-1.5 z-10 flex h-6 min-w-6 animate-pop items-center justify-center rounded-full bg-gradient-to-br from-teal-600 to-emerald-600 px-1 text-xs font-bold text-white shadow">
                     {qty}
                   </span>
                 )}
-                <div className="mb-1 flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg bg-slate-100 text-xl">
-                  {p.photo_url ? (
-                    <img src={p.photo_url} alt="" className="h-full w-full object-cover" />
-                  ) : (
-                    "🥛"
-                  )}
-                </div>
-                <span className="line-clamp-2 text-center text-[11px] leading-tight">{p.name}</span>
-                <span className="text-xs font-semibold text-brand">{formatINR(p.price)}</span>
-              </button>
+                <button
+                  onClick={() => add(p)}
+                  className="flex flex-1 flex-col items-center active:scale-[0.97]"
+                >
+                  <div className="mb-1 flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl bg-slate-100 text-2xl">
+                    {p.photo_url ? (
+                      <img src={p.photo_url} alt="" className="h-full w-full object-cover" />
+                    ) : (
+                      "🥛"
+                    )}
+                  </div>
+                  <span className="line-clamp-2 text-center text-[11px] font-medium leading-tight">{p.name}</span>
+                  <span className="mt-0.5 text-xs font-bold text-teal-700">{formatINR(p.price)}</span>
+                </button>
+
+                {qty > 0 ? (
+                  <div className="mt-1.5 flex items-center justify-between rounded-lg bg-slate-100 p-0.5">
+                    <button
+                      onClick={() => setQty(p.id, qty - 1)}
+                      aria-label="Decrease"
+                      className="flex h-7 w-7 items-center justify-center rounded-md bg-white text-xl font-bold leading-none text-slate-700 shadow-sm active:scale-95"
+                    >
+                      −
+                    </button>
+                    <span className="text-sm font-semibold">{qty}</span>
+                    <button
+                      onClick={() => add(p)}
+                      aria-label="Increase"
+                      className="flex h-7 w-7 items-center justify-center rounded-md bg-white text-xl font-bold leading-none text-teal-700 shadow-sm active:scale-95"
+                    >
+                      +
+                    </button>
+                  </div>
+                ) : (
+                  <div className="mt-1.5 rounded-lg bg-slate-50 py-1 text-center text-[11px] font-medium text-slate-400">
+                    Tap to add
+                  </div>
+                )}
+              </div>
             );
           })}
         </div>
@@ -121,12 +155,17 @@ export default function SaleClient() {
 
       {/* Sticky checkout bar */}
       {itemCount > 0 && (
-        <div className="fixed inset-x-0 bottom-16 z-20 mx-auto max-w-2xl px-4">
+        <div className="fixed inset-x-0 bottom-24 z-20 mx-auto max-w-2xl px-4">
           <button
             onClick={() => setCheckoutOpen(true)}
-            className="flex w-full items-center justify-between rounded-xl bg-brand px-5 py-3.5 font-semibold text-white shadow-lg"
+            className="btn-brand flex w-full items-center justify-between px-5 py-3.5 text-base shadow-lg shadow-teal-700/25"
           >
-            <span>{itemCount} item{itemCount > 1 ? "s" : ""}</span>
+            <span className="flex items-center gap-2">
+              <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-white/25 px-1.5 text-sm">
+                {itemCount}
+              </span>
+              item{itemCount > 1 ? "s" : ""}
+            </span>
             <span>Checkout · {formatINR(total)}</span>
           </button>
         </div>

@@ -3,6 +3,8 @@
 @theme {
   --color-brand: #0f766e;
   --color-brand-dark: #115e59;
+  --color-brand-light: #5eead4;
+  --color-cream: #fffaf0;
 }
 
 html,
@@ -10,8 +12,31 @@ body {
   height: 100%;
 }
 
-/* Prevent iOS tap-zoom / text selection jank on the POS counter. */
+/* Soft tinted backdrop so white cards pop. */
 body {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
+  background:
+    radial-gradient(900px 480px at 100% -8%, rgba(94, 234, 212, 0.25), transparent 60%),
+    radial-gradient(800px 420px at -10% 6%, rgba(240, 253, 250, 0.9), transparent 55%),
+    #f6f8f9;
+  background-attachment: fixed;
+}
+
+/* Reusable bits */
+@layer components {
+  .card {
+    @apply rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/70;
+  }
+  .btn-brand {
+    @apply rounded-xl bg-gradient-to-br from-teal-600 to-emerald-600 font-semibold text-white shadow-sm transition active:scale-[0.98] disabled:opacity-60;
+  }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-pop {
+  animation: pop 0.12s ease-out;
 }
