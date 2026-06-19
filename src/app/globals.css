@@ -23,13 +23,31 @@ body {
   background-attachment: fixed;
 }
 
-/* Reusable bits */
+/* Reusable bits — plain CSS so they never depend on @apply behaviour. */
 @layer components {
   .card {
-    @apply rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/70;
+    border-radius: 1rem;
+    background: #ffffff;
+    box-shadow:
+      0 0 0 1px rgb(226 232 240 / 0.7),
+      0 1px 2px 0 rgb(0 0 0 / 0.05);
   }
   .btn-brand {
-    @apply rounded-xl bg-gradient-to-br from-teal-600 to-emerald-600 font-semibold text-white shadow-sm transition active:scale-[0.98] disabled:opacity-60;
+    border-radius: 0.75rem;
+    background-image: linear-gradient(to bottom right, #0d9488, #059669);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 4px 14px -2px rgb(13 148 136 / 0.35);
+    transition: transform 0.12s ease, filter 0.12s ease;
+  }
+  .btn-brand:hover {
+    filter: brightness(1.05);
+  }
+  .btn-brand:active {
+    transform: scale(0.98);
+  }
+  .btn-brand:disabled {
+    opacity: 0.6;
   }
 }
 

@@ -233,6 +233,9 @@ export default function SaleClient() {
         )}
       </section>
 
+      {/* Spacer so the floating checkout bar never hides the last row */}
+      {itemCount > 0 && <div className="h-16" />}
+
       {/* Sticky checkout bar */}
       {itemCount > 0 && (
         <div className="fixed inset-x-0 bottom-24 z-20 mx-auto max-w-2xl px-4">
