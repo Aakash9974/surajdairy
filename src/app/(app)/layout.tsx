@@ -21,9 +21,7 @@ export default async function AppLayout({
       <header className="sticky top-0 z-10 bg-gradient-to-r from-teal-700 to-emerald-600 text-white shadow-md">
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/15 text-lg backdrop-blur">
-              🥛
-            </span>
+            <img src="/logo.svg" alt="" className="h-9 w-9 rounded-xl bg-white shadow-sm" />
             <div className="leading-tight">
               <p className="font-semibold">{DAIRY_NAME}</p>
               <p className="text-[11px] text-white/70">Sales &amp; ledger</p>

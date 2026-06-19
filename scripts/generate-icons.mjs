@@ -30,28 +30,34 @@ function chunk(type, data) {
 }
 
 function makePng(size) {
-  const bg = [15, 118, 110]; // brand teal
-  const fg = [255, 255, 255];
+  // Matches public/logo.svg: morning-blue bg, golden sun, white milk splash.
+  const blue = [227, 242, 253]; // #E3F2FD
+  const gold = [255, 193, 7]; // #FFC107
+  const white = [255, 255, 255];
+
   const cx = size / 2;
-  const cy = size * 0.52;
-  const r = size * 0.28;
+  const cy = size * 0.45;
+  const r = size * 0.225;
 
   const raw = Buffer.alloc((size * 4 + 1) * size);
   let p = 0;
   for (let y = 0; y < size; y++) {
     raw[p++] = 0; // filter: none
     for (let x = 0; x < size; x++) {
-      // teardrop-ish: circle body + pointed top
+      let col = blue;
+
+      // Sun
       const dx = x - cx;
       const dy = y - cy;
-      const inCircle = dx * dx + dy * dy <= r * r;
-      const inTip =
-        y < cy && Math.abs(dx) <= ((cy - y) / (cy - (cy - r * 1.5))) * r * 0.9 && y > cy - r * 1.6;
-      const isFg = inCircle || inTip;
-      const [rr, gg, bb] = isFg ? fg : bg;
-      raw[p++] = rr;
-      raw[p++] = gg;
-      raw[p++] = bb;
+      if (dx * dx + dy * dy <= r * r) col = gold;
+
+      // Milk splash band along the bottom (wavy top edge), drawn over the sun.
+      const bandTop = size * 0.58 + Math.sin((x / size) * Math.PI * 3) * size * 0.03;
+      if (y >= bandTop) col = white;
+
+      raw[p++] = col[0];
+      raw[p++] = col[1];
+      raw[p++] = col[2];
       raw[p++] = 255;
     }
   }

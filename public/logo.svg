@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <!-- Morning Blue App Icon Background -->
+  <rect width="400" height="400" rx="80" fill="#E3F2FD" />
+
+  <!-- Golden Sunrise -->
+  <circle cx="200" cy="180" r="90" fill="#FFC107" />
+
+  <!-- Smooth Milk Splash overlapping the sun -->
+  <path d="M 90 210 Q 140 180 200 205 T 310 195 L 310 270 L 90 270 Z" fill="#FFFFFF" />
+
+  <!-- Upward Splashing Milk Drops (Sun Rays) -->
+  <path d="M140,110 C155,140 155,160 140,160 C125,160 125,140 140,110 Z" fill="#FFFFFF"/>
+  <path d="M200,60 C215,90 215,110 200,110 C185,110 185,90 200,60 Z" fill="#FFFFFF"/>
+  <path d="M260,120 C275,145 275,160 260,160 C245,160 245,145 260,120 Z" fill="#FFFFFF"/>
+
+  <!-- Modern Navy Typography -->
+  <text x="200" y="320" font-family="Arial, Helvetica, sans-serif" font-weight="bold" font-size="44" fill="#1A237E" text-anchor="middle">SURAJ</text>
+  <text x="200" y="355" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#1A237E" text-anchor="middle" letter-spacing="6">DAIRY</text>
+</svg>

@@ -35,9 +35,7 @@ export default function LoginPage() {
     <main className="flex min-h-screen items-center justify-center p-6">
       <div className="w-full max-w-sm rounded-3xl bg-white p-8 shadow-xl shadow-teal-900/5 ring-1 ring-slate-200/70">
         <div className="mb-6 text-center">
-          <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-600 to-emerald-600 text-3xl shadow-md">
-            🥛
-          </div>
+          <img src="/logo.svg" alt="Suraj Dairy" className="mx-auto mb-3 h-24 w-24 rounded-2xl shadow-md" />
           <h1 className="text-xl font-semibold text-slate-900">{DAIRY_NAME}</h1>
           <p className="text-sm text-slate-500">Sign in to manage sales</p>
         </div>

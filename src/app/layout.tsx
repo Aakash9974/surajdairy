@@ -8,7 +8,10 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Suraj Dairy" },
   icons: {
-    icon: "/icons/icon-192.png",
+    icon: [
+      { url: "/logo.svg", type: "image/svg+xml" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
     apple: "/icons/icon-192.png",
   },
 };
