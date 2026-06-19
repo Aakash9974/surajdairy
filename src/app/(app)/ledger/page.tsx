@@ -1,10 +1,5 @@
-import ComingSoon from "@/components/ComingSoon";
+import LedgerClient from "@/components/ledger/LedgerClient";
 
 export default function LedgerPage() {
-  return (
-    <ComingSoon
-      title="Ledger & reports"
-      note="Balances, sales reports, defaulter list and WhatsApp reminders arrive in Phase 5."
-    />
-  );
+  return <LedgerClient />;
 }

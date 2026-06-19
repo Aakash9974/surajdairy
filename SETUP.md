@@ -27,7 +27,9 @@ NEXT_PUBLIC_DAIRY_NAME=Suraj Dairy
 In the Supabase dashboard → **SQL Editor**, run these in order:
 
 1. `supabase/migrations/0001_init.sql` — tables, balance view, security, realtime
-2. `supabase/seed.sql` — starter Amul products (optional; you can also add your own)
+2. `supabase/migrations/0002_storage.sql` — product photo storage bucket + policies
+3. `supabase/migrations/0003_create_sale.sql` — atomic sale RPC (used by the POS)
+4. `supabase/seed.sql` — starter Amul products (optional; you can also add your own)
 
 ## 4. Create your login
 

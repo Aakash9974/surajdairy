@@ -1,10 +1,5 @@
-import ComingSoon from "@/components/ComingSoon";
+import SaleClient from "@/components/sale/SaleClient";
 
 export default function SalePage() {
-  return (
-    <ComingSoon
-      title="New sale"
-      note="The point-of-sale counter (pick customer → tap products → cash/udhar) arrives in Phase 3."
-    />
-  );
+  return <SaleClient />;
 }

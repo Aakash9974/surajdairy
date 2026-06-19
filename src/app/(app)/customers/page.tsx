@@ -1,10 +1,5 @@
-import ComingSoon from "@/components/ComingSoon";
+import CustomersClient from "@/components/customers/CustomersClient";
 
 export default function CustomersPage() {
-  return (
-    <ComingSoon
-      title="Customers"
-      note="Add, search and manage customers (with opening udhar balance) arrives in Phase 2."
-    />
-  );
+  return <CustomersClient />;
 }

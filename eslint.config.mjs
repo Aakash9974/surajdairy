@@ -10,6 +10,9 @@ const eslintConfig = defineConfig([
       // Product photos are small, user-uploaded images shown in a tap grid;
       // plain <img> keeps it simple and offline-friendly.
       "@next/next/no-img-element": "off",
+      // We deliberately load Supabase data inside effects (no data library);
+      // the loaders setState after fetching — an intended sync pattern here.
+      "react-hooks/set-state-in-effect": "off",
     },
   },
   // Override default ignores of eslint-config-next.

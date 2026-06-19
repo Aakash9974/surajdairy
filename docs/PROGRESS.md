@@ -7,44 +7,58 @@ _Last updated: 2026-06-19_
 
 ## Current state
 
-- **Phase:** Phase 1 (Inventory) — starting.
-- **Build:** `npm run build` passes (Phase 0).
-- **Supabase:** not yet connected by user; `.env.local` has placeholders. App boots
-  and shows a "Connect Supabase" banner until real keys + SQL are applied.
-- **GitHub:** repo https://github.com/Aakash9974/surajdairy (remote to be wired).
+- **All phases (0–6) feature-complete and building.** `npm run build` and
+  `npx eslint src` both pass clean.
+- **Supabase:** NOT yet connected by the user. `.env.local` has placeholders; app
+  boots and shows a "Connect Supabase" banner until real keys + SQL are applied.
+- **GitHub:** repo https://github.com/Aakash9974/surajdairy — remote `origin` set;
+  see "Push status" below.
+- Remaining work is **user-side**: connect Supabase, test locally (TEST-PLAN.md),
+  deploy (DEPLOYMENT.md). Branded icons can replace the generated placeholders.
 
-## Done
+## Done (all phases)
 
-- **Phase 0 ✅** — Next.js 16 + React 19 + Tailwind 4 PWA scaffold; Supabase
-  client/server/proxy auth; login page; `(app)` shell + bottom nav; dashboard with
-  live stat tiles; section stubs. Schema `0001_init.sql`, storage `0002_storage.sql`,
-  `seed.sql` (14 Amul products). SDLC docs created.
-
-## Next up (in order)
-
-1. **Phase 1 — Inventory:** product grid + photos, add/edit/delete modal, photo
-   upload to Storage, optional stock, realtime.
-2. Phase 2 — Customers.
-3. Phase 3 — POS sale flow.
-4. Phase 4 — WhatsApp purchase message.
-5. Phase 5 — Ledger, reports, reminders.
-6. Phase 6 — PWA polish + deploy.
-
-## Decisions / notes
-
-- Next 16: use `proxy.ts` (not `middleware.ts`); `cookies()` is async.
-- Use plain `<img>` for product photos (eslint rule disabled).
-- Balance is computed by `customer_balances` view — never cache it on a column.
-- Money in INR via `formatINR` in `src/lib/format.ts`.
+- **P0 ✅** Scaffold, auth (`proxy.ts`), app shell + bottom nav, dashboard, schema
+  (`0001_init.sql`), storage (`0002_storage.sql`), seed, SDLC docs.
+- **P1 ✅** Inventory: product grid w/ photos, add/edit/delete modal, photo upload
+  to Storage, optional stock, active toggle, realtime. (`components/products/*`)
+- **P2 ✅** Customers: list w/ live balance + search, add/edit, dedicated add page,
+  customer detail page. (`components/customers/*`)
+- **P3 ✅** POS: customer picker (+ walk-in / new), product tap-grid w/ qty badges,
+  sticky checkout, cash/udhar/partial, atomic `create_sale` RPC (`0003_create_sale.sql`),
+  realtime. (`components/sale/*`)
+- **P4 ✅** Messaging module (`lib/messaging/*`): pluggable provider, WhatsApp
+  click-to-send, purchase/reminder/monthly templates, logs to `messages_log`.
+  After-sale "Send WhatsApp receipt".
+- **P5 ✅** Ledger: customer transaction timeline, record payment, send reminder.
+  `/ledger`: outstanding/defaulter list w/ reminder + monthly buttons, reports
+  (today/month/all: sales, collected, udhar, bills, by-product). (`components/ledger/*`)
+- **P6 ✅** PWA: generated 192/512 icons (`scripts/generate-icons.mjs`), offline
+  service worker (`public/sw.js`) + registration, manifest, apple touch icon.
+  Deployment runbook (`docs/DEPLOYMENT.md`).
 
 ## Open items for the user
 
-- Create Supabase project + paste keys into `.env.local` (see `SETUP.md`).
-- Run `supabase/migrations/*.sql` then `seed.sql` in Supabase SQL editor.
-- Create owner login user in Supabase Auth.
+1. Create Supabase project; paste URL + anon key into `.env.local` (`SETUP.md`).
+2. Run SQL in order: `0001_init.sql`, `0002_storage.sql`, `0003_create_sale.sql`,
+   then `seed.sql`. (Storage bucket `product-photos` is created by 0002.)
+3. Create owner login in Supabase Auth; set role = 'owner' (SQL in SETUP.md).
+4. `npm run dev`, work through `docs/TEST-PLAN.md`.
+5. Deploy via `docs/DEPLOYMENT.md` (push to GitHub → import on Vercel → env vars).
+
+## Push status
+
+- Local commits exist on `main`. If `git push -u origin main` was not completed in
+  this session (auth), the user runs it — see DEPLOYMENT.md §2.
+
+## Possible future enhancements (not built)
+
+- Automatic SMS / WhatsApp API provider (drop-in via `lib/messaging`).
+- Owner-only RLS for deletes; staff management UI.
+- CSV/PDF export of reports; date-range custom picker; GST invoices.
+- Edit/void a saved sale.
 
 ## How to resume after context loss
 
-1. Read this file, then `docs/ROADMAP.md` for the current phase's checklist.
-2. Read `docs/ARCHITECTURE.md` for layout & patterns.
-3. Continue the first unchecked item; tick boxes + update "Current state" here.
+1. Read this file, then `docs/ROADMAP.md` and `docs/ARCHITECTURE.md`.
+2. All phases are done — new work is enhancements above or user-reported issues.
