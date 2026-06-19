@@ -118,8 +118,10 @@ export default function SaleClient() {
         mode: data.payment_mode as PaymentMode,
         paid: Number(data.paid_amount),
       });
+      // Just load it onto the page — no second modal. The editing banner +
+      // filled cart + sticky bar guide the user, same as a normal sale.
       setRecentOpen(false);
-      setCheckoutOpen(true);
+      if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
     },
     [supabase, products],
   );
@@ -142,9 +144,12 @@ export default function SaleClient() {
       </div>
 
       {editing && (
-        <div className="flex items-center justify-between rounded-xl border border-amber-300 bg-amber-50 px-4 py-2.5 text-sm text-amber-800">
-          <span>Editing a saved sale</span>
-          <button onClick={reset} className="font-medium underline">
+        <div className="flex items-start justify-between gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-2.5 text-sm text-amber-800">
+          <div>
+            <p className="font-semibold">✏️ Editing a saved sale</p>
+            <p className="text-xs text-amber-700">Adjust items or customer, then tap “Review edit” below.</p>
+          </div>
+          <button onClick={reset} className="shrink-0 rounded-lg bg-white px-2.5 py-1 text-xs font-medium text-amber-800 ring-1 ring-amber-300">
             Cancel
           </button>
         </div>
